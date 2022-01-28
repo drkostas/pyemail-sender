@@ -1,41 +1,46 @@
-# pip install cloud-filemanager
+# pip install py-emailer
 import os
-from cloud_filemanager import DropboxCloudManager, CloudConfig, ColorLogger
+from py_emailer import GmailPyEmailer, PyEmailerConfig, ColorLogger
 
 # Setup Logger
 log = ColorLogger(logger_name='Example', color='yellow')
 
 # Load config
-# cloud_conf = {'type': 'dropbox', 'config': {'api_key': 'your api key'}}
+# cloud_conf = {'type': 'gmail',
+#               'config': {'api_key': 'your api key', 'email_address': 'youremail@gmail.com'}}
 # config_path = os.path.join('confs', 'conf.yml')
 config_path = os.path.join('confs', 'conf_with_env_vars.yml')
-config = CloudConfig(config_src=config_path)
-cloud_conf = config.get_cloud_config()
+config = PyEmailerConfig(config_src=config_path)
+email_conf = config.get_pyemailer_config()
 # Check for errors
-if cloud_conf['type'] != 'dropbox':
-    raise Exception(f"{cloud_conf['type']} not yet supported!")
-if cloud_conf['config']['api_key'] == 'DROPBOX_API_KEY':
+if email_conf['type'] != 'gmail':
+    raise Exception(f"{email_conf['type']} not yet supported!")
+if email_conf['config']['api_key'] == 'GMAIL_API_KEY':
     raise Exception("You are trying to use environmental variables but they are not loaded!")
 # Initialize handler
-dbx = DropboxCloudManager(config=cloud_conf['config'])
+pymail = GmailPyEmailer(config=email_conf['config'])
 # Create a test file
 with open('my_file.txt', 'w') as fp:
     fp.write('blank')
 
 # -------- Examples -------- #
-# Upload file
-with open('my_file.txt', 'rb') as fp:
-    file_to_upload = fp.read()
-dbx.upload_file(file_bytes=file_to_upload, upload_path='/tests/my_file.txt', write_mode='overwrite')
-# Show Cloud Files
-log.info(f"List of files in the Cloud:\n{dbx.ls('/tests/')}")
-# Download File
-dbx.download_file(frompath='/tests/my_file.txt', tofile='my_file_downloaded.txt')
-# Delete FIle
-dbx.delete_file('/tests/my_file.txt')
-# Show Cloud Files Again
-log.info(f"List of files in the Cloud:\n{dbx.ls('/tests/')}")
+# Send Simple Email
+pymail.send_email(subject='A simple email',
+                  to=[email_conf['email_address']],
+                  text='Email body text goes here')
+# Send HTML Email
+pymail.send_email(subject='A simple HTML email',
+                  to=[email_conf['email_address']],
+                  html='<h1>Email body with HTML goes here</h1>')
+# Send Email with all the arguments
+pymail.send_email(subject='Email with all possible arguments',
+                  sender=email_conf['email_address'],
+                  to=[email_conf['email_address']],
+                  cc=[email_conf['email_address']],
+                  bcc=[email_conf['email_address']],
+                  reply_to=email_conf['email_address'],
+                  html='<h1>Test <b>HTML</b> body</h1>',
+                  attachments=['my_file.txt'])
 
 # Cleanup
 os.remove('my_file.txt')
-os.remove('my_file_downloaded.txt')
