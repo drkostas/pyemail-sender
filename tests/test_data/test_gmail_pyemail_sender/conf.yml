@@ -1,5 +1,5 @@
 tag: test
-py-emailer:
+pyemail-sender:
   - config:
       email_address: !ENV ${EMAIL_ADDRESS}
       api_key: !ENV ${GMAIL_API_KEY}

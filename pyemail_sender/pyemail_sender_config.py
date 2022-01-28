@@ -4,7 +4,7 @@ from io import StringIO, TextIOWrapper
 import os
 
 
-class PyEmailerConfig(Configuration):
+class PyEmailSenderConfig(Configuration):
     def __init__(self, config_src: Union[TextIOWrapper, StringIO, str],
                  config_schema_path: str = None):
         """ The basic constructor. Creates a new instance of the class.
@@ -13,8 +13,8 @@ class PyEmailerConfig(Configuration):
                                    of the configuration validation file
         """
         if config_schema_path is None:
-            config_schema_path = os.path.join('py_emailer', 'pyemailer_schema.json')
+            config_schema_path = os.path.join('pyemail_sender', 'pyemail_sender_schema.json')
         super().__init__(config_src, config_schema_path)
 
-    def get_pyemailer_config(self, which: int = 0) -> Dict:
-        return super().get_config('py-emailer')[which]
+    def get_pyemail_sender_config(self, which: int = 0) -> Dict:
+        return super().get_config('pyemail-sender')[which]

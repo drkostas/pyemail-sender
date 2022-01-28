@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class AbstractPyEmailer(ABC):
+class AbstractPyEmailSender(ABC):
     __slots__ = ('_handler',)
 
     @abstractmethod
@@ -17,7 +17,7 @@ class AbstractPyEmailer(ABC):
     @abstractmethod
     def get_handler(*args, **kwargs):
         """
-        Returns an PyEmailer handler.
+        Returns an PyEmailSender handler.
 
         :param args:
         :param kwargs:

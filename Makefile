@@ -14,7 +14,7 @@ ifeq ($(env),venv)
 	DEACTIVATE_COMMAND="deactivate"
 else
 	# Use Conda
-	BASE=~/anaconda3/envs/py_emailer
+	BASE=~/anaconda3/envs/pyemail_sender
 	BIN=$(BASE)/bin
 	CREATE_COMMAND="conda create --prefix $(BASE) python=$(PYTHON_VERSION) -y"
 	DELETE_COMMAND="conda env remove -p $(BASE)"

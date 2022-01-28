@@ -5,15 +5,15 @@
     "tag": {
       "type": "string"
     },
-    "py-emailer": {
-      "$ref": "#/definitions/py-emailer"
+    "pyemail-sender": {
+      "$ref": "#/definitions/pyemail-sender"
     }
   },
   "required": [
-    "py-emailer"
+    "pyemail-sender"
   ],
   "definitions": {
-    "py-emailer": {
+    "pyemail-sender": {
       "type": "array",
       "items": {
         "type": "object"

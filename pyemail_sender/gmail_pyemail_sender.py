@@ -1,12 +1,12 @@
 from typing import List, Dict
 from gmail import GMail, Message
 from termcolor_logger import ColorLogger
-from .abstract_pyemailer import AbstractPyEmailer
+from .abstract_pyemail_sender import AbstractPyEmailSender
 
-logger = ColorLogger('GmailPyEmailer')
+logger = ColorLogger('GmailPyEmailSender')
 
 
-class GmailPyEmailer(AbstractPyEmailer):
+class GmailPyEmailSender(AbstractPyEmailSender):
     __slots__ = ('_handler', 'email_address', 'test_mode')
 
     _handler: GMail

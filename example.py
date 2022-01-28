@@ -1,6 +1,6 @@
-# pip install py-emailer
+# pip install pyemail-sender
 import os
-from py_emailer import GmailPyEmailer, PyEmailerConfig, ColorLogger
+from pyemail_sender import GmailPyEmailSender, PyEmailSenderConfig, ColorLogger
 
 # Setup Logger
 log = ColorLogger(logger_name='Example', color='yellow')
@@ -10,15 +10,15 @@ log = ColorLogger(logger_name='Example', color='yellow')
 #               'config': {'api_key': 'your api key', 'email_address': 'youremail@gmail.com'}}
 # config_path = os.path.join('confs', 'conf.yml')
 config_path = os.path.join('confs', 'conf_with_env_vars.yml')
-config = PyEmailerConfig(config_src=config_path)
-email_conf = config.get_pyemailer_config()
+config = PyEmailSenderConfig(config_src=config_path)
+email_conf = config.get_pyemail_sender_config()
 # Check for errors
 if email_conf['type'] != 'gmail':
     raise Exception(f"{email_conf['type']} not yet supported!")
 if email_conf['config']['api_key'] == 'GMAIL_API_KEY':
     raise Exception("You are trying to use environmental variables but they are not loaded!")
 # Initialize handler
-pymail = GmailPyEmailer(config=email_conf['config'])
+pymail = GmailPyEmailSender(config=email_conf['config'])
 # Create a test file
 with open('my_file.txt', 'w') as fp:
     fp.write('blank')

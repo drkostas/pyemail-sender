@@ -1,12 +1,12 @@
 # Python Emailer
 
-[![CircleCI](https://circleci.com/gh/drkostas/py-emailer/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/py-emailer/tree/master)
-[![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/drkostas/py-emailer/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/drkostas/pyemail-sender/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/pyemail-sender/tree/master)
+[![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/drkostas/pyemail-sender/master/LICENSE)
 
 ## About <a name = "about"></a>
 
 A utility for sending emails with attachments. Currently only Gmail 
-is supported. [PYPI Package](https://pypi.org/project/py-emailer/)
+is supported. [PYPI Package](https://pypi.org/project/pyemail-sender/)
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ is supported. [PYPI Package](https://pypi.org/project/py-emailer/)
 ## Using the library <a name = "using"></a>
 
 For a detailed usage example see 
-[example.py](https://github.com/drkostas/py-emailer/master/example.py).
+[example.py](https://github.com/drkostas/pyemail-sender/master/example.py).
 
 You will need an application-specific password for your Google account. 
 [Reference 1](https://support.google.com/mail/?p=InvalidSecondFactor), 
@@ -35,31 +35,31 @@ You will need an application-specific password for your Google account.
 First, you need to install the library using pip:
 
 ```shell
-$ pip install py_emailer
+$ pip install pyemail_sender
 ```
 
 Then, import it and initialize it like so:
 
 ```python
-from py_emailer import GmailPyEmailer
+from pyemail_sender import GmailPyEmailSender
 
 email_conf = {'type': 'gmail',
               'config': {'api_key': 'your api key', 'email_address': 'youremail@gmail.com'}}
-pymail = GmailPyEmailer(config=email_conf)
+pymail = GmailPyEmailSender(config=email_conf)
 ```
 
-If you want to use a yml file to load the configuration, you can use the `PyEmailerConfig` class:
+If you want to use a yml file to load the configuration, you can use the `PyEmailSenderConfig` class:
 ```python
-from py_emailer import PyEmailerConfig
+from pyemail_sender import PyEmailSenderConfig
 import os
 
 config_path = str(os.path.join('confs', 'conf.yml'))
-config = PyEmailerConfig(config_src=config_path)
-email_conf = config.get_pyemailer_config()
+config = PyEmailSenderConfig(config_src=config_path)
+email_conf = config.get_pyemail_sender_config()
 ```
 
 Two example YAML files can be found in 
-the [confs folder](https://github.com/drkostas/py-emailer/blob/master/confs).
+the [confs folder](https://github.com/drkostas/pyemail-sender/blob/master/confs).
 For more details on how to use this YAML configuration loader see 
 this [Readme](https://github.com/drkostas/yaml-config-wrapper/blob/master/README.md).
 
@@ -91,7 +91,7 @@ pymail.send_email(subject='Email with all possible arguments',
 ```
 
 All of these examples can be found 
-in [example.py](https://github.com/drkostas/py-emailer/tree/blob/master/example.py).
+in [example.py](https://github.com/drkostas/pyemail-sender/tree/blob/master/example.py).
 
 ## Manually install the library <a name = "manual_install"></a>
 
@@ -117,16 +117,16 @@ $ echo $SHELL
 ### Install the requirements <a name = "installing_req"></a>
 
 All the installation steps are being handled by
-the [Makefile](https://github.com/drkostas/py-emailer/blob/master/Makefile).
+the [Makefile](https://github.com/drkostas/pyemail-sender/blob/master/Makefile).
 
 First, modify the python version (`min_python`) and everything else you need in
-the [settings.ini](https://github.com/drkostas/py-emailer/blob/master/settings.ini).
+the [settings.ini](https://github.com/drkostas/pyemail-sender/blob/master/settings.ini).
 
 Then, execute the following commands:
 
 ```ShellSession
 $ make create_env
-$ conda activate py_emailer
+$ conda activate pyemail_sender
 $ make dist
 ```
 
@@ -146,7 +146,7 @@ For the continuous integration, the <b>CircleCI</b> service is being used. For m
 check the [setup guide](https://circleci.com/docs/2.0/language-python/).
 
 For any modifications, edit
-the [circleci config](https://github.com/drkostas/py-emailer/blob/master/.circleci/config.yml).
+the [circleci config](https://github.com/drkostas/pyemail-sender/blob/master/.circleci/config.yml).
 
 ## Update PyPI package <a name = "pypi"></a>
 
@@ -161,13 +161,13 @@ password = your_pypi_password
 
 Then, modify the python version (`min_python`), project status (`status`), release version (`version`) 
 and everything else you need in
-the [settings.ini](https://github.com/drkostas/py-emailer/blob/master/settings.ini).
+the [settings.ini](https://github.com/drkostas/pyemail-sender/blob/master/settings.ini).
 
 Finally, execute the following commands:
 
 ```ShellSession
 $ make create_env
-$ conda activate py_emailer
+$ conda activate pyemail_sender
 $ make release
 ```
 
@@ -176,6 +176,6 @@ For a dev release, change the `testing_version` and instead of `make release`, r
 ## License <a name = "license"></a>
 
 This project is licensed under the MIT License - see
-the [LICENSE](https://github.com/drkostas/py-emailer/blob/master/LICENSE) file for details.
+the [LICENSE](https://github.com/drkostas/pyemail-sender/blob/master/LICENSE) file for details.
 
 <a href="https://www.buymeacoffee.com/drkostas" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

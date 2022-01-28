@@ -7,23 +7,23 @@ import copy
 from typing import Tuple
 from smtplib import SMTPAuthenticationError
 
-from py_emailer import GmailPyEmailer, PyEmailerConfig, ColorLogger
+from pyemail_sender import GmailPyEmailSender, PyEmailSenderConfig, ColorLogger
 
-logger = ColorLogger('TestGmailPyEmailer')
+logger = ColorLogger('TestGmailPyEmailSender')
 
 
-class TestGmailPyEmailer(unittest.TestCase):
+class TestGmailPyEmailSender(unittest.TestCase):
     __slots__ = ('configuration', 'file_name')
 
-    configuration: PyEmailerConfig
+    configuration: PyEmailSenderConfig
     file_name: str
-    test_data_path: str = os.path.join('tests', 'test_data', 'test_gmail_pyemailer')
+    test_data_path: str = os.path.join('tests', 'test_data', 'test_gmail_pyemail_sender')
 
     def test_connect(self):
         # Test the connection with the correct api key
         try:
-            gmail_configuration = self.configuration.get_pyemailer_config()['config']
-            GmailPyEmailer(config=gmail_configuration)
+            gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+            GmailPyEmailSender(config=gmail_configuration)
         except SMTPAuthenticationError as e:
             logger.error('Error connecting with the correct credentials: %s', e)
             self.fail('Error connecting with the correct credentials')
@@ -33,20 +33,20 @@ class TestGmailPyEmailer(unittest.TestCase):
         with self.assertRaises(SMTPAuthenticationError):
             gmail_wrong_configuration = copy.deepcopy(gmail_configuration)
             gmail_wrong_configuration['api_key'] = 'wrong_key'
-            GmailPyEmailer(config=gmail_wrong_configuration)
+            GmailPyEmailSender(config=gmail_wrong_configuration)
         logger.info("Connecting to Gmail with wrong credentials failed successfully.")
 
     def test_is_connected_and_exit(self):
-        gmail_configuration = self.configuration.get_pyemailer_config()['config']
-        gmail_app = GmailPyEmailer(config=gmail_configuration)
+        gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+        gmail_app = GmailPyEmailSender(config=gmail_configuration)
         self.assertEqual(True, gmail_app.is_connected())
         gmail_app.__exit__()
         self.assertEqual(False, gmail_app.is_connected())
 
     def test_send_email_with_all_args(self):
         try:
-            gmail_configuration = self.configuration.get_pyemailer_config()['config']
-            gmail_app = GmailPyEmailer(config=gmail_configuration)
+            gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+            gmail_app = GmailPyEmailSender(config=gmail_configuration)
 
             gmail_app.send_email(subject='test_send_email_with_all_args',
                                  to=[gmail_configuration['email_address']],
@@ -64,8 +64,8 @@ class TestGmailPyEmailer(unittest.TestCase):
 
     def test_send_email_with_required_args(self):
         try:
-            gmail_configuration = self.configuration.get_pyemailer_config()['config']
-            gmail_app = GmailPyEmailer(config=gmail_configuration)
+            gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+            gmail_app = GmailPyEmailSender(config=gmail_configuration)
 
             gmail_app.send_email(subject='test_send_email_with_required_args',
                                  to=[gmail_configuration['email_address']]
@@ -76,8 +76,8 @@ class TestGmailPyEmailer(unittest.TestCase):
 
     def test_send_email_with_html(self):
         try:
-            gmail_configuration = self.configuration.get_pyemailer_config()['config']
-            gmail_app = GmailPyEmailer(config=gmail_configuration)
+            gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+            gmail_app = GmailPyEmailSender(config=gmail_configuration)
 
             gmail_app.send_email(subject='test_send_email_with_html',
                                  to=[gmail_configuration['email_address']],
@@ -89,8 +89,8 @@ class TestGmailPyEmailer(unittest.TestCase):
 
     def test_send_email_with_text(self):
         try:
-            gmail_configuration = self.configuration.get_pyemailer_config()['config']
-            gmail_app = GmailPyEmailer(config=gmail_configuration)
+            gmail_configuration = self.configuration.get_pyemail_sender_config()['config']
+            gmail_app = GmailPyEmailSender(config=gmail_configuration)
 
             gmail_app.send_email(subject='test_send_email_with_text',
                                  to=[gmail_configuration['email_address']],
@@ -131,7 +131,7 @@ class TestGmailPyEmailer(unittest.TestCase):
             logger.error('Gmail env variables are not set!')
             raise Exception('Gmail env variables are not set!')
         logger.info('Loading Configuration..')
-        cls.configuration = PyEmailerConfig(config_src=os.path.join(cls.test_data_path,
+        cls.configuration = PyEmailSenderConfig(config_src=os.path.join(cls.test_data_path,
                                                                     'conf.yml'))
 
     @classmethod
