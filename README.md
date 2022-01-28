@@ -26,6 +26,10 @@ is supported. [PYPI Package](https://pypi.org/project/py-emailer/)
 For a detailed usage example see 
 [example.py](https://github.com/drkostas/py-emailer/master/example.py).
 
+You will need an application-specific password for your Google account. 
+[Reference 1](https://support.google.com/mail/?p=InvalidSecondFactor), 
+[Reference 2](https://security.google.com/settings/security/apppasswords)
+
 ### Installing and using the library <a name = "install_use"></a>
 
 First, you need to install the library using pip:
