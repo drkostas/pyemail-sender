@@ -24,6 +24,7 @@ with open('my_file.txt', 'w') as fp:
     fp.write('blank')
 
 # -------- Examples -------- #
+email_conf = email_conf['config']
 # Send Simple Email
 pymail.send_email(subject='A simple email',
                   to=[email_conf['email_address']],
