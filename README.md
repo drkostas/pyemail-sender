@@ -1,12 +1,12 @@
-# Cloud Filemanager
+# Python Emailer
 
-[![CircleCI](https://circleci.com/gh/drkostas/cloud-filemanager/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/cloud-filemanager/tree/master)
-[![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/drkostas/cloud-filemanager/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/drkostas/py-emailer/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/py-emailer/tree/master)
+[![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/drkostas/py-emailer/master/LICENSE)
 
 ## About <a name = "about"></a>
 
-A high-level filemanager utility for cloud services. Currently, only Dropbox 
-is supported. [PYPI Package](https://pypi.org/project/cloud-filemanager/)
+A utility for sending emails with attachments. Currently only Gmail 
+is supported. [PYPI Package](https://pypi.org/project/py-emailer/)
 
 ## Table of Contents
 
@@ -24,67 +24,70 @@ is supported. [PYPI Package](https://pypi.org/project/cloud-filemanager/)
 ## Using the library <a name = "using"></a>
 
 For a detailed usage example see 
-[example.py](https://github.com/drkostas/cloud-filemanager/master/example.py).
+[example.py](https://github.com/drkostas/py-emailer/master/example.py).
 
 ### Installing and using the library <a name = "install_use"></a>
 
 First, you need to install the library using pip:
 
 ```shell
-$ pip install cloud_filemanager
+$ pip install py_emailer
 ```
 
 Then, import it and initialize it like so:
 
 ```python
-from cloud_filemanager import DropboxCloudManager
+from py_emailer import GmailPyEmailer
 
-cloud_conf = {'type': 'dropbox', 'config': {'api_key': 'your api key'}}
-dbx = DropboxCloudManager(config=cloud_conf)
+email_conf = {'type': 'gmail',
+              'config': {'api_key': 'your api key', 'email_address': 'youremail@gmail.com'}}
+pymail = GmailPyEmailer(config=email_conf)
 ```
 
-If you want to use a yml file to load the configuration, you can use the `CloudConfig` class:
+If you want to use a yml file to load the configuration, you can use the `PyEmailerConfig` class:
 ```python
-from cloud_filemanager import CloudConfig
+from py_emailer import PyEmailerConfig
 import os
 
 config_path = str(os.path.join('confs', 'conf.yml'))
-config = CloudConfig(config_src=config_path)
-cloud_conf = config.get_cloud_config()
+config = PyEmailerConfig(config_src=config_path)
+email_conf = config.get_pyemailer_config()
 ```
 
 Two example YAML files can be found in 
-the [confs folder](https://github.com/drkostas/cloud-filemanager/blob/master/confs).
+the [confs folder](https://github.com/drkostas/py-emailer/blob/master/confs).
 For more details on how to use this YAML configuration loader see 
 this [Readme](https://github.com/drkostas/yaml-config-wrapper/blob/master/README.md).
 
 ### Examples of usage <a name = "examples"></a>
 
-The currently supported operations are the following:
-- Upload, Download, Delete Files
-- List directories
 
-**Upload**
+**Send Simple Email**
 ```python
-with open('my_file.txt', 'rb') as fp:
-    file_to_upload = fp.read()
-dbx.upload_file(file_bytes=file_to_upload, upload_path='/tests/my_file.txt', write_mode='overwrite')
+pymail.send_email(subject='A simple email',
+                  to=[email_conf['email_address']],
+                  text='Email body text goes here')
 ```
-**Download**
+**Send HTML Email**
 ```python
-dbx.download_file(frompath='/tests/my_file.txt', tofile='my_file_downloaded.txt')
+pymail.send_email(subject='A simple HTML email',
+                  to=[email_conf['email_address']],
+                  html='<h1>Email body with HTML goes here</h1>')
 ```
-**Delete**
+**Send Email with all the arguments**
 ```python
-dbx.delete_file('/tests/my_file.txt')
-```
-**List Files**
-```python
-dbx.ls('/tests/')
+pymail.send_email(subject='Email with all possible arguments',
+                  sender=email_conf['email_address'],
+                  to=[email_conf['email_address']],
+                  cc=[email_conf['email_address']],
+                  bcc=[email_conf['email_address']],
+                  reply_to=email_conf['email_address'],
+                  html='<h1>Test <b>HTML</b> body</h1>',
+                  attachments=['my_file.txt'])
 ```
 
 All of these examples can be found 
-in [example.py](https://github.com/drkostas/cloud-filemanager/tree/blob/master/example.py).
+in [example.py](https://github.com/drkostas/py-emailer/tree/blob/master/example.py).
 
 ## Manually install the library <a name = "manual_install"></a>
 
@@ -110,16 +113,16 @@ $ echo $SHELL
 ### Install the requirements <a name = "installing_req"></a>
 
 All the installation steps are being handled by
-the [Makefile](https://github.com/drkostas/cloud-filemanager/blob/master/Makefile).
+the [Makefile](https://github.com/drkostas/py-emailer/blob/master/Makefile).
 
 First, modify the python version (`min_python`) and everything else you need in
-the [settings.ini](https://github.com/drkostas/cloud-filemanager/blob/master/settings.ini).
+the [settings.ini](https://github.com/drkostas/py-emailer/blob/master/settings.ini).
 
 Then, execute the following commands:
 
 ```ShellSession
 $ make create_env
-$ conda activate yaml_config_wrapper
+$ conda activate py_emailer
 $ make dist
 ```
 
@@ -139,7 +142,7 @@ For the continuous integration, the <b>CircleCI</b> service is being used. For m
 check the [setup guide](https://circleci.com/docs/2.0/language-python/).
 
 For any modifications, edit
-the [circleci config](https://github.com/drkostas/cloud-filemanager/blob/master/.circleci/config.yml).
+the [circleci config](https://github.com/drkostas/py-emailer/blob/master/.circleci/config.yml).
 
 ## Update PyPI package <a name = "pypi"></a>
 
@@ -154,13 +157,13 @@ password = your_pypi_password
 
 Then, modify the python version (`min_python`), project status (`status`), release version (`version`) 
 and everything else you need in
-the [settings.ini](https://github.com/drkostas/cloud-filemanager/blob/master/settings.ini).
+the [settings.ini](https://github.com/drkostas/py-emailer/blob/master/settings.ini).
 
 Finally, execute the following commands:
 
 ```ShellSession
 $ make create_env
-$ conda activate yaml_config_wrapper
+$ conda activate py_emailer
 $ make release
 ```
 
@@ -169,6 +172,6 @@ For a dev release, change the `testing_version` and instead of `make release`, r
 ## License <a name = "license"></a>
 
 This project is licensed under the MIT License - see
-the [LICENSE](https://github.com/drkostas/cloud-filemanager/blob/master/LICENSE) file for details.
+the [LICENSE](https://github.com/drkostas/py-emailer/blob/master/LICENSE) file for details.
 
 <a href="https://www.buymeacoffee.com/drkostas" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

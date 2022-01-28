@@ -6,7 +6,7 @@ from py_emailer import GmailPyEmailer, PyEmailerConfig, ColorLogger
 log = ColorLogger(logger_name='Example', color='yellow')
 
 # Load config
-# cloud_conf = {'type': 'gmail',
+# email_conf = {'type': 'gmail',
 #               'config': {'api_key': 'your api key', 'email_address': 'youremail@gmail.com'}}
 # config_path = os.path.join('confs', 'conf.yml')
 config_path = os.path.join('confs', 'conf_with_env_vars.yml')
