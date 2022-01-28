@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "tag": {
+      "type": "string"
+    },
+    "py-emailer": {
+      "$ref": "#/definitions/py-emailer"
+    }
+  },
+  "required": [
+    "py-emailer"
+  ],
+  "definitions": {
+    "py-emailer": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "required": [
+        "config",
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "gmail"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "required": [
+            "api_key",
+            "email_address"
+          ],
+          "properties": {
+            "api_key": {
+              "type": "string"
+            },
+            "email_address": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

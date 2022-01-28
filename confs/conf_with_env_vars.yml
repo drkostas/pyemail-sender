@@ -1,0 +1,6 @@
+tag: test
+py-emailer:
+  - config:
+      email_address: !ENV ${EMAIL_ADDRESS}
+      api_key: !ENV ${GMAIL_API_KEY}
+    type: gmail

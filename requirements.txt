@@ -1,0 +1,3 @@
+gmail>=0.6.3
+yaml-config-wrapper>=1.0.4
+termcolor-logger>=1.0.3
