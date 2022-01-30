@@ -1,7 +1,8 @@
 # Python Emailer
 
-[![CircleCI](https://circleci.com/gh/drkostas/pyemail-sender/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/pyemail-sender/tree/master)
+[![Downloads](https://static.pepy.tech/personalized-badge/pyemail-sender?period=total&units=international_system&left_color=grey&right_color=red&left_text=Downloads)](https://pepy.tech/project/pyemail-sender)
 [![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/drkostas/pyemail-sender/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/drkostas/pyemail-sender/tree/master.svg?style=svg)](https://circleci.com/gh/drkostas/pyemail-sender/tree/master)
 
 ## About <a name = "about"></a>
 
