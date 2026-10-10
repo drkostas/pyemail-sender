@@ -1,3 +1,5 @@
+![pyemail-sender](docs/images/banner.png)
+
 # Python Emailer
 
 [![Downloads](https://static.pepy.tech/personalized-badge/pyemail-sender?period=total&units=international_system&left_color=grey&right_color=red&left_text=Downloads)](https://pepy.tech/project/pyemail-sender)

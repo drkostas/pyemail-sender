@@ -1,0 +1,14 @@
+kind: banner
+name: pyemail-sender
+line: A Python library that sends emails with attachments through Gmail.
+accent: rose
+diagram:
+- doc:
+    label: attachment
+- arrow
+- cloud:
+    label: gmail
+- arrow
+- user:
+    label: recipient
+    accent: true
